@@ -9,40 +9,13 @@ export const handleDivClick =
     }
   };
 
-export const hendleEditeInput =
-  (setIsActiveInput: (value: React.SetStateAction<boolean>) => void) => () => {
-    setIsActiveInput((e) => !e);
-  };
-
-export const handleUpdeteItems =
-  ({
-    handleUpdete,
-    id,
-  }: {
-    id: string;
-    handleUpdete: ({
-      value,
-      key,
-      id,
-    }: {
-      value: string;
-      key: string;
-      id: string;
-    }) => void;
-  }) =>
-  <T extends string>(key: T, value: T) =>
+export const handleUpdateItems =
+  (handleUpdate: () => void, fn: () => void) =>
   (event: React.KeyboardEvent<HTMLDivElement>) => {
-    handleUpdete({ value, key, id });
-  };
-
-export const handleActive =
-  ({
-    setIsActiveBtnName,
-  }: {
-    setIsActiveBtnName: (value: React.SetStateAction<boolean>) => void;
-  }) =>
-  () => {
-    setIsActiveBtnName((e) => !e);
+    if (onKeyDown(event)) {
+      fn();
+      handleUpdate();
+    }
   };
 
 export const handleToggle =

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Item } from "../type";
-import { getItemsByIdSelector, updateItemValueById } from "../slices/items";
+import { getItemsByIdSelector } from "../slices/items";
 import ItemsTable from "./ItemsTable";
 import { useNavigate, useParams } from "react-router-dom";
-import { onKeyDown } from "../utils/onKeyDown";
-import { useAppDispatch } from "../store";
 
 const Table: React.FC = () => {
   const Params = useParams<{ id: string }>();
@@ -17,7 +14,7 @@ const Table: React.FC = () => {
     if (!itemsList) {
       navigate("/");
     }
-  }, []);
+  }, [itemsList, navigate]);
 
   if (!itemsList) {
     return (

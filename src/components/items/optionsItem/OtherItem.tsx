@@ -1,94 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
 import InputItem from "./InputItem";
 import WrapperComponent from "./WrapperComponent";
-import { handleActive, handleDivClick } from "../../../utils/handles";
+import { handleDivClick } from "../../../utils/handles";
 import BtnItem from "./BtnItem";
 
 interface ItemProps {
   value: string;
-  pride: number;
-  itemsKey: string;
-  handleUpdeteItems: <T extends string>(
-    key: T,
-    velue: T
-  ) => (event: React.KeyboardEvent<HTMLDivElement>) => void;
-  hendleAddInput: () => void;
+  handleUpdate: (velue: string) => void;
+  handleAddInput: () => void;
 }
 
-export const OtherItem: React.FC<ItemProps> = ({
-  value,
-  pride,
-  itemsKey,
-  handleUpdeteItems,
-  hendleAddInput,
-}) => {
-  const [isActiveInput, setIsActiveInput] = useState(false);
-  const [isActiveBtnName, setIsActiveBtnName] = useState(false);
+export const OtherItem: React.FC<ItemProps> = React.memo(
+  ({ value, handleUpdate, handleAddInput }) => {
+    const [isActiveInput, setIsActiveInput] = useState(false);
+    const [isActiveBtnName, setIsActiveBtnName] = useState(false);
 
-  useEffect(() => {}, []);
-  if (value.length === 0) {
-    return (
-      <WrapperComponent
-        children={
-          <div className=" relative max-h-5/6 m-2 box-border flex items-center justify-center border border-yellow-700  ">
-            <InputItem {...{ handleUpdeteItems, itemsKey, value: "" }} />
-          </div>
-        }
-      />
+    const handleDivMouseEnter = useCallback(() => {
+      setIsActiveBtnName((e) => !e);
+    }, []);
+
+    const handleInputChange = useCallback(
+      (newValue: string) => {
+        handleUpdate(newValue);
+      },
+      [handleUpdate]
     );
-  }
-  return (
-    <div
-      className={
-        " min-h-[24px] max-h-[120px]  box-border flex items-center pl-2 relative  border-l border-b-2 border-slate-400 "
-      }
-    >
-      <div className=" max-w-xs relative w-full h-full box-border m-2 pr-3">
-        {isActiveInput ? (
-          <WrapperComponent
-            children={
-              <>
-                <div className=" relative w-1/2 h-full flex items-center ">
-                  <InputItem
-                    {...{
-                      setIsActiveInput,
-                      handleUpdeteItems,
-                      itemsKey,
-                      value,
-                    }}
-                  />
-                </div>
-              </>
-            }
-          />
-        ) : (
-          <WrapperComponent
-            children={
-              <>
-                <div
-                  onMouseEnter={handleActive({
-                    setIsActiveBtnName,
-                  })}
-                  onClick={handleDivClick(setIsActiveBtnName)}
-                  className=" w-full h-full flex items-center"
-                >
-                  {value}
 
-                  {pride >= 1 && isActiveBtnName && (
+    const handleBtnClick = useCallback(() => {
+      handleAddInput();
+    }, [handleAddInput]);
+
+    return (
+      <div className="w-auto h-auto min-h-[20px] box-border flex items-center pl-2 relative border-b border-slate-400">
+        <div className="max-w-xs relative w-full h-full box-border m-2 pr-3 grid grid-cols-1 gap-3">
+          <WrapperComponent>
+            <div
+              onMouseEnter={handleDivMouseEnter}
+              onClick={handleDivClick(setIsActiveBtnName)}
+              className="w-full h-full flex items-center"
+            >
+              {isActiveInput ? (
+                <InputItem
+                  handleUpdate={handleInputChange}
+                  value={value}
+                  setIsActiveInput={setIsActiveInput}
+                />
+              ) : (
+                <>
+                  {value}
+                  {isActiveBtnName && (
                     <BtnItem
-                      {...{
-                        setIsActiveBtnName,
-                        setIsActiveInput,
-                        hendleAddInput,
-                      }}
+                      setIsActiveBtnName={handleDivMouseEnter}
+                      setIsActiveInput={setIsActiveInput}
+                      handleAddInput={handleBtnClick}
                     />
                   )}
-                </div>
-              </>
-            }
-          />
-        )}
+                </>
+              )}
+            </div>
+          </WrapperComponent>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
