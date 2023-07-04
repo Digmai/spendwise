@@ -70,7 +70,7 @@ git push origin feature/your-feature-name
 
 ## Авторы
 
-- Ваше имя - qt20130@gmail.com
+- Digmai - qt20130@gmail.com
 
 ## Лицензия
 
