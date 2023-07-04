@@ -1,46 +1,77 @@
-# Getting Started with Create React App
+# React приложение "Spendwise"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Добро пожаловать в React приложение "Spendwise"! Это приложение позволяет вам создавать таблицы в левой части экрана. Каждая таблица представляет собой дерево с возможностью открывать, закрывать и редактировать узлы, а также создавать новые узлы. Для управления состоянием приложения используется Redux Toolkit вместе с TypeScript.
 
-## Available Scripts
+## Установка
 
-In the project directory, you can run:
+1. Клонируйте репозиторий на локальную машину:
 
-### `npm start`
+```bash
+git clone https://github.com/Digmai/spendwise.git
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. Перейдите в папку проекта:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+cd spendwise
+```
 
-### `npm test`
+3. Установите зависимости:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install
+```
 
-### `npm run build`
+4. Запустите приложение:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Откройте [http://localhost:3000](http://localhost:3000) в браузере, чтобы увидеть приложение.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Используемые технологии
 
-### `npm run eject`
+- React - для создания пользовательского интерфейса.
+- Redux Toolkit - для управления состоянием приложения.
+- TypeScript - для статической типизации JavaScript кода.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Функциональность
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+В приложении "Таблицы с деревом" вы можете:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Создавать новые таблицы.
+- Открывать и закрывать узлы дерева.
+- Редактировать содержимое узлов.
+- Создавать новые узлы.
+- Удалять узлы.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Развитие проекта
 
-## Learn More
+Если вы хотите внести свой вклад в развитие этого проекта, вы можете сделать следующее:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Создайте форк этого репозитория.
+2. Создайте отдельную ветку для ваших изменений:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+git checkout -b feature/your-feature-name
+```
+
+3. Выполните необходимые изменения и коммиты в соответствии с [руководством по структуре коммитов](https://www.conventionalcommits.org/en/v1.0.0/).
+4. Запушьте ваши изменения в свой форк репозитория:
+
+```bash
+git push origin feature/your-feature-name
+```
+
+5. Создайте pull request для ваших изменений.
+
+Будем рады вашим вкладам!
+
+## Авторы
+
+- Ваше имя - qt20130@gmail.com
+
+## Лицензия
+
+Этот проект лицензируется по лицензии [MIT](https://opensource.org/licenses/MIT).
