@@ -5,9 +5,7 @@ import { checkKey } from "../../../utils/checkArrayMapping";
 import { RenderOtherItem } from "./RenderOtherItem";
 
 interface PropsRenderItems {
-  inputValue: string;
   isExpanded: boolean;
-  setInputValue: Dispatch<SetStateAction<string>>;
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
   arrayMapping: boolean[];
   childLength: number;
@@ -29,11 +27,9 @@ export const RenderItems: React.FC<PropsRenderItems> = ({
   arrayMapping,
   childLength,
   hendleAddInput,
-  inputValue,
   isExpanded,
   items,
   lastNode,
-  setInputValue,
   setIsExpanded,
   handleUpdete,
 }) => {
@@ -43,6 +39,8 @@ export const RenderItems: React.FC<PropsRenderItems> = ({
     keys.map((key) => {
       if (checkKey(key)) {
         if (key === "name") {
+          console.log(key, "<-----key", items[key]);
+
           return (
             <RenderNameItem
               {...{
@@ -50,11 +48,9 @@ export const RenderItems: React.FC<PropsRenderItems> = ({
                 arrayMapping,
                 childLength,
                 hendleAddInput,
-                inputValue,
                 isExpanded,
                 items,
                 lastNode,
-                setInputValue,
                 setIsExpanded,
                 id: items.id,
                 keys: key,
@@ -67,6 +63,8 @@ export const RenderItems: React.FC<PropsRenderItems> = ({
         return (
           <RenderOtherItem
             {...{
+              hendleAddInput,
+              pride: items.pride,
               handleUpdete,
               id: items.id,
               keys: key,

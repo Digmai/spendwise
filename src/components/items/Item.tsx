@@ -24,13 +24,8 @@ const Item: React.FC<ItemProps> = ({
   paramsId,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [inputValue, setInputValue] = useState<string>("");
 
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    setInputValue(items.name);
-  }, [items.name]);
 
   const handleUpdete = ({
     value,
@@ -48,26 +43,6 @@ const Item: React.FC<ItemProps> = ({
     dispatch(addItem({ id: items.id, paramsId }));
   };
 
-  const RenderTree = () => (
-    <>
-      {items.children.length > 0 &&
-        items.children.map((item, i) => (
-          <Item
-            paramsId={paramsId}
-            items={item}
-            lastNode={i + 1}
-            childLength={items.children.length}
-            arrayMapping={mapArray({
-              lastNode,
-              childLength,
-              arrayMapping,
-              condition: childLength !== lastNode,
-            })}
-          />
-        ))}
-    </>
-  );
-
   return (
     <>
       {
@@ -77,18 +52,24 @@ const Item: React.FC<ItemProps> = ({
             childLength,
             handleUpdete,
             hendleAddInput,
-            inputValue,
             isExpanded,
             items,
             lastNode,
-            setInputValue,
             setIsExpanded,
           }}
         />
       }
 
-      {!isExpanded && isStart && <RenderTree />}
-      {isExpanded && <RenderTree />}
+      {!isExpanded && isStart && (
+        <RenderTree
+          {...{ arrayMapping, childLength, items, lastNode, paramsId }}
+        />
+      )}
+      {isExpanded && (
+        <RenderTree
+          {...{ arrayMapping, childLength, items, lastNode, paramsId }}
+        />
+      )}
     </>
   );
 };

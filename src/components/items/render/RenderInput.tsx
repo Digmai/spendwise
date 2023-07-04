@@ -1,5 +1,5 @@
 import { handleUpdeteItems } from "../../../utils/handles";
-import NewItem from "../optionsItem/NewItem";
+import InputItem from "../optionsItem/InputItem";
 
 interface PropsRenderInput {
   key: string;
@@ -21,12 +21,13 @@ export const RenderInput: React.FC<PropsRenderInput> = ({
   key,
 }) => {
   return (
-    <NewItem
+    <InputItem
       handleUpdeteItems={handleUpdeteItems({
         id,
         handleUpdete,
       })}
       itemsKey={key}
+      value={""}
     />
   );
 };

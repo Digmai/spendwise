@@ -1,20 +1,28 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Item } from "../../../type";
 import Tree from "../../Tree/Tree";
-import NewItem from "./NewItem";
-import { handleActive, handleDivClick } from "../../../utils/handles";
+import {
+  handleActive,
+  handleDivClick,
+  handleToggle,
+} from "../../../utils/handles";
 import BtnItem from "./BtnItem";
+import InputItem from "./InputItem";
+import BtnTree from "../../btn/BtnTree";
+import WrapperComponent from "./WrapperComponent";
 
 interface ItemProps {
-  btnTree: JSX.Element;
   items: Item;
   lastNode: number;
   childLength: number;
   arrayMapping: boolean[];
+  isExpanded: boolean;
+  setIsExpanded: Dispatch<SetStateAction<boolean>>;
   handleUpdeteItems: <T extends string>(
     key: T,
     velue: T
   ) => (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  hendleAddInput: () => void;
 }
 
 export const NameItem: React.FC<ItemProps> = ({
@@ -22,32 +30,28 @@ export const NameItem: React.FC<ItemProps> = ({
   childLength,
   lastNode,
   items,
-  btnTree,
+  isExpanded,
   handleUpdeteItems,
+  setIsExpanded,
+  hendleAddInput,
 }) => {
-  const [inputValue, setInputValue] = useState<string>(items["name"]);
   const [isActiveBtnName, setIsActiveBtnName] = useState(false);
   const [isActiveInput, setIsActiveInput] = useState(false);
-
-  if (!inputValue) {
-    return <NewItem {...{ handleUpdeteItems, itemsKey: "name" }} />;
+  if (items.name.length === 0) {
+    return (
+      <InputItem {...{ handleUpdeteItems, itemsKey: "name", value: "" }} />
+    );
   }
   const mLeft = 15;
 
-  const wraperC = (child: JSX.Element) => {
-    return (
-      <div className="relative w-auto min-w-max h-full flex  items-center">
-        <div className="relative w-full  h-5/6 flex justify-center items-center">
-          {child}
-        </div>
-      </div>
-    );
-  };
   return (
     <div
       style={{ marginLeft: items.pride * mLeft + "px" }}
       className=" w-auto h-auto min-h-[20px] box-border flex items-center pl-2 relative border-b-2 border-slate-400 "
     >
+      {
+        /// Tree border visible
+      }
       <Tree
         items={items}
         mLeft={mLeft}
@@ -55,66 +59,72 @@ export const NameItem: React.FC<ItemProps> = ({
         lastNode={lastNode}
         arrayMapping={arrayMapping}
       />
-      {items.children.length > 0 ? (
-        <div className="max-w-xs relative w-full h-full box-border m-2 pr-3 grid grid-cols-[min-content_1fr] gap-3">
-          {items.pride >= 1 && wraperC(<>{btnTree}</>)}
-
-          {wraperC(
+      {
+        /// btn open children elements
+      }
+      {items.pride >= 1 && items.children.length > 0 && (
+        <WrapperComponent
+          children={
             <>
-              {isActiveInput ? (
-                <input
-                  value={inputValue}
-                  className="text-black p-2"
-                  onKeyDown={handleUpdeteItems("name", inputValue)}
-                  onChange={(e) => setInputValue(e.target.value)}
+              {
+                /// btn open children elements
+                <BtnTree
+                  pride={items.pride}
+                  isExpanded={isExpanded}
+                  handleToggle={handleToggle({ isExpanded, setIsExpanded })}
                 />
-              ) : (
-                <div
-                  onMouseEnter={handleActive({
-                    setIsActiveBtnName,
-                  })}
-                  onClick={handleDivClick(setIsActiveBtnName)}
-                  className=" w-full h-full flex items-center "
-                >
-                  {items["name"]}
-                  {items.pride >= 1 && isActiveBtnName && (
-                    <BtnItem {...{ setIsActiveBtnName, setIsActiveInput }} />
-                  )}
-                </div>
-              )}
+              }
             </>
-          )}
-        </div>
-      ) : (
-        <div className=" max-w-xs relative w-full h-full box-border m-2 pr-3 grid grid-cols-1 gap-3">
-          {wraperC(
-            <>
-              {isActiveInput ? (
-                <input
-                  value={inputValue}
-                  className="text-black p-2 min-h-[20px]"
-                  onKeyDown={handleUpdeteItems("name", inputValue)}
-                  onChange={(e) => setInputValue(e.target.value)}
-                />
-              ) : (
-                <div
-                  onMouseEnter={handleActive({
-                    setIsActiveBtnName,
-                  })}
-                  onClick={handleDivClick(setIsActiveBtnName)}
-                  className=" w-full h-full flex items-center "
-                >
-                  {items["name"]}
-
-                  {items.pride >= 1 && isActiveBtnName && (
-                    <BtnItem {...{ setIsActiveBtnName, setIsActiveInput }} />
-                  )}
-                </div>
-              )}
-            </>
-          )}
-        </div>
+          }
+        />
       )}
+
+      <div className=" max-w-xs relative w-full h-full box-border m-2 pr-3 grid grid-cols-1 gap-3">
+        {isActiveInput ? (
+          <WrapperComponent
+            children={
+              <>
+                <div className=" relative w-1/2 h-full flex items-center ">
+                  <InputItem
+                    {...{
+                      setIsActiveInput,
+                      handleUpdeteItems,
+                      itemsKey: "name",
+                      value: items.name,
+                    }}
+                  />
+                </div>
+              </>
+            }
+          />
+        ) : (
+          <WrapperComponent
+            children={
+              <>
+                <div
+                  onMouseEnter={handleActive({
+                    setIsActiveBtnName,
+                  })}
+                  onClick={handleDivClick(setIsActiveBtnName)}
+                  className=" w-full h-full flex items-center "
+                >
+                  {items["name"]}
+
+                  {items.pride >= 1 && isActiveBtnName && (
+                    <BtnItem
+                      {...{
+                        setIsActiveBtnName,
+                        setIsActiveInput,
+                        hendleAddInput,
+                      }}
+                    />
+                  )}
+                </div>
+              </>
+            }
+          />
+        )}
+      </div>
     </div>
   );
 };

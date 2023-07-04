@@ -3,6 +3,7 @@ import { addItemNav, getItemsSelector } from "../slices/items";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../store";
+import { generateId } from "../mock/items";
 
 const NavBar: React.FC<{
   setChildTitle: (childTitle: string) => void;
@@ -21,7 +22,25 @@ const NavBar: React.FC<{
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
     if (event.key === "Enter") {
-      dispatch(addItemNav({ children: [], id: "123", title: inputValue }));
+      dispatch(
+        addItemNav({
+          children: [
+            {
+              id: generateId(),
+              pride: 1,
+              name: "",
+              comment: "",
+              price: "",
+              totalPrice: "",
+              fromDate: "",
+              toDate: "",
+              children: [],
+            },
+          ],
+          id: generateId(),
+          title: inputValue,
+        })
+      );
       setInputValue("");
     }
   };

@@ -32,9 +32,7 @@ export const handleUpdeteItems =
   }) =>
   <T extends string>(key: T, value: T) =>
   (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (onKeyDown(event)) {
-      handleUpdete({ id, key, value });
-    }
+    handleUpdete({ value, key, id });
   };
 
 export const handleActive =

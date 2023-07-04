@@ -1,46 +1,92 @@
 import React, { useEffect, useState } from "react";
-import NewItem from "./NewItem";
+import InputItem from "./InputItem";
+import WrapperComponent from "./WrapperComponent";
+import { handleActive, handleDivClick } from "../../../utils/handles";
+import BtnItem from "./BtnItem";
 
 interface ItemProps {
   value: string;
+  pride: number;
   itemsKey: string;
   handleUpdeteItems: <T extends string>(
     key: T,
     velue: T
   ) => (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  hendleAddInput: () => void;
 }
 
 export const OtherItem: React.FC<ItemProps> = ({
   value,
+  pride,
   itemsKey,
   handleUpdeteItems,
+  hendleAddInput,
 }) => {
-  const [inputValue, setInputValue] = useState<string>("");
   const [isActiveInput, setIsActiveInput] = useState(false);
+  const [isActiveBtnName, setIsActiveBtnName] = useState(false);
 
-  useEffect(() => {
-    setInputValue(value);
-  }, []);
-
-  if (!inputValue) {
-    return <NewItem {...{ handleUpdeteItems, itemsKey }} />;
+  useEffect(() => {}, []);
+  if (value.length === 0) {
+    return (
+      <WrapperComponent
+        children={
+          <div className=" relative max-h-5/6 m-2 box-border flex items-center justify-center border border-yellow-700  ">
+            <InputItem {...{ handleUpdeteItems, itemsKey, value: "" }} />
+          </div>
+        }
+      />
+    );
   }
   return (
     <div
       className={
-        "w-full h-full p-2 border-b-2  border-l flex items-center justify-center    border-slate-400"
+        " min-h-[24px] max-h-[120px]  box-border flex items-center pl-2 relative  border-l border-b-2 border-slate-400 "
       }
     >
-      <div className="  max-w-[300px] flex items-center    ">
+      <div className=" max-w-xs relative w-full h-full box-border m-2 pr-3">
         {isActiveInput ? (
-          <input
-            value={inputValue}
-            className="text-black p-2"
-            onKeyDown={handleUpdeteItems(itemsKey, inputValue)}
-            onChange={(e) => setInputValue(e.target.value)}
+          <WrapperComponent
+            children={
+              <>
+                <div className=" relative w-1/2 h-full flex items-center ">
+                  <InputItem
+                    {...{
+                      setIsActiveInput,
+                      handleUpdeteItems,
+                      itemsKey,
+                      value,
+                    }}
+                  />
+                </div>
+              </>
+            }
           />
         ) : (
-          value
+          <WrapperComponent
+            children={
+              <>
+                <div
+                  onMouseEnter={handleActive({
+                    setIsActiveBtnName,
+                  })}
+                  onClick={handleDivClick(setIsActiveBtnName)}
+                  className=" w-full h-full flex items-center"
+                >
+                  {value}
+
+                  {pride >= 1 && isActiveBtnName && (
+                    <BtnItem
+                      {...{
+                        setIsActiveBtnName,
+                        setIsActiveInput,
+                        hendleAddInput,
+                      }}
+                    />
+                  )}
+                </div>
+              </>
+            }
+          />
         )}
       </div>
     </div>

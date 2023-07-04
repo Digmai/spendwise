@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { Item } from "../../../type";
-import { handleToggle, handleUpdeteItems } from "../../../utils/handles";
-import BtnTree from "../../btn/BtnTree";
+import { handleUpdeteItems } from "../../../utils/handles";
 import { NameItem } from "../optionsItem/NameItem";
 
 interface PropsRenderNameItem {
@@ -10,7 +9,6 @@ interface PropsRenderNameItem {
   id: string;
   isExpanded: boolean;
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
-
   arrayMapping: boolean[];
   childLength: number;
   items: Item;
@@ -36,24 +34,23 @@ export const RenderNameItem: React.FC<PropsRenderNameItem> = ({
   setIsExpanded,
   handleUpdete,
   id,
+  hendleAddInput,
 }) => {
   return (
     <NameItem
-      handleUpdeteItems={handleUpdeteItems({
-        id,
-        handleUpdete,
-      })}
-      arrayMapping={arrayMapping}
-      childLength={childLength}
-      items={items}
-      lastNode={lastNode}
-      btnTree={
-        <BtnTree
-          pride={items.pride}
-          isExpanded={isExpanded}
-          handleToggle={handleToggle({ isExpanded, setIsExpanded })}
-        />
-      }
+      {...{
+        handleUpdeteItems: handleUpdeteItems({
+          id,
+          handleUpdete,
+        }),
+        hendleAddInput,
+        arrayMapping,
+        childLength,
+        items,
+        lastNode,
+        isExpanded,
+        setIsExpanded,
+      }}
     />
   );
 };

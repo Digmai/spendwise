@@ -9,7 +9,7 @@ interface ItemsState {
 }
 
 const initialState: ItemsState = {
-  value: generateFakeData(6),
+  value: generateFakeData(2),
 };
 
 const itemsSlice = createSlice({
@@ -29,14 +29,14 @@ const itemsSlice = createSlice({
           if (item) {
             item.children.push({
               id: generateId(),
-              children: [],
-              comment: "",
-              fromDate: "",
-              name: "",
-              price: "",
               pride: item.pride + 1,
-              toDate: "",
+              name: "",
+              comment: "",
+              price: "",
               totalPrice: "",
+              fromDate: "",
+              toDate: "",
+              children: [],
             });
           }
         }

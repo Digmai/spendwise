@@ -1,9 +1,9 @@
-import { Item } from "../../../type";
+import { Item as IItem } from "../../../type";
 import { checkConditions, mapArray } from "../../../utils/checkArrayMapping";
-import Items from "../Item";
+import Item from "../Item";
 
 interface PropsRenderTree {
-  items: Item;
+  items: IItem;
   isStart?: boolean;
   paramsId: string;
   lastNode: number;
@@ -22,17 +22,20 @@ export const RenderTree: React.FC<PropsRenderTree> = ({
   return (
     <>
       {items.children.length > 0 &&
-        items.children.map((item, i) => {
-          return (
-            <Items
-              paramsId={paramsId}
-              items={item}
-              lastNode={i + 1}
-              childLength={items.children.length}
-              arrayMapping={arrayMapping}
-            />
-          );
-        })}
+        items.children.map((item, i) => (
+          <Item
+            paramsId={paramsId}
+            items={item}
+            lastNode={i + 1}
+            childLength={items.children.length}
+            arrayMapping={mapArray({
+              lastNode,
+              childLength,
+              arrayMapping,
+              condition: childLength !== lastNode,
+            })}
+          />
+        ))}
     </>
   );
 };
