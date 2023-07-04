@@ -1,8 +1,7 @@
-import { handleUpdeteItems } from "../../utils/handles";
-import { OtherItem } from "../items/OtherItem";
+import { handleUpdeteItems } from "../../../utils/handles";
+import { OtherItem } from "../optionsItem/OtherItem";
 
 interface PropsRenderOtherItem {
-  isActiveInput: boolean;
   value: string;
   keys: string;
   id: string;
@@ -22,7 +21,6 @@ export const RenderOtherItem: React.FC<PropsRenderOtherItem> = ({
   keys,
   value,
   handleUpdete,
-  isActiveInput,
 }) => {
   return (
     <OtherItem
@@ -30,7 +28,6 @@ export const RenderOtherItem: React.FC<PropsRenderOtherItem> = ({
         id,
         handleUpdete,
       })}
-      isActiveInput={isActiveInput}
       value={value}
       itemsKey={keys}
     />

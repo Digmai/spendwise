@@ -1,18 +1,14 @@
 import { Dispatch, SetStateAction } from "react";
 import { RenderNameItem } from "./RenderNameItem";
-import { Item } from "../../type";
-import { checkKey } from "../../utils/checkArrayMapping";
+import { Item } from "../../../type";
+import { checkKey } from "../../../utils/checkArrayMapping";
 import { RenderOtherItem } from "./RenderOtherItem";
 
 interface PropsRenderItems {
   inputValue: string;
   isExpanded: boolean;
-  isActiveBtnName: boolean;
-  isActiveInput: boolean;
   setInputValue: Dispatch<SetStateAction<string>>;
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
-  setIsActiveInput: Dispatch<SetStateAction<boolean>>;
-  setIsActiveBtnName: Dispatch<SetStateAction<boolean>>;
   arrayMapping: boolean[];
   childLength: number;
   items: Item;
@@ -34,14 +30,10 @@ export const RenderItems: React.FC<PropsRenderItems> = ({
   childLength,
   hendleAddInput,
   inputValue,
-  isActiveBtnName,
-  isActiveInput,
   isExpanded,
   items,
   lastNode,
   setInputValue,
-  setIsActiveBtnName,
-  setIsActiveInput,
   setIsExpanded,
   handleUpdete,
 }) => {
@@ -59,14 +51,10 @@ export const RenderItems: React.FC<PropsRenderItems> = ({
                 childLength,
                 hendleAddInput,
                 inputValue,
-                isActiveBtnName,
-                isActiveInput,
                 isExpanded,
                 items,
                 lastNode,
                 setInputValue,
-                setIsActiveBtnName,
-                setIsActiveInput,
                 setIsExpanded,
                 id: items.id,
                 keys: key,
@@ -81,7 +69,6 @@ export const RenderItems: React.FC<PropsRenderItems> = ({
             {...{
               handleUpdete,
               id: items.id,
-              isActiveInput,
               keys: key,
               value: items[key],
             }}

@@ -1,5 +1,5 @@
-import { handleUpdeteItems } from "../../utils/handles";
-import NewItem from "../items/NewItem";
+import { handleUpdeteItems } from "../../../utils/handles";
+import NewItem from "../optionsItem/NewItem";
 
 interface PropsRenderInput {
   key: string;

@@ -1,18 +1,16 @@
 import { useState } from "react";
-import { Item } from "../../type";
-import Tree from "../Tree/Tree";
+import { Item } from "../../../type";
+import Tree from "../../Tree/Tree";
 import NewItem from "./NewItem";
+import { handleActive, handleDivClick } from "../../../utils/handles";
+import BtnItem from "./BtnItem";
 
 interface ItemProps {
-  btnAddAndEdit: JSX.Element;
   btnTree: JSX.Element;
   items: Item;
   lastNode: number;
   childLength: number;
   arrayMapping: boolean[];
-  isActiveInput: boolean;
-  onMouseEnter: () => void;
-  handleDivClick: () => void;
   handleUpdeteItems: <T extends string>(
     key: T,
     velue: T
@@ -25,13 +23,11 @@ export const NameItem: React.FC<ItemProps> = ({
   lastNode,
   items,
   btnTree,
-  btnAddAndEdit,
-  isActiveInput,
-  onMouseEnter,
-  handleDivClick,
   handleUpdeteItems,
 }) => {
   const [inputValue, setInputValue] = useState<string>(items["name"]);
+  const [isActiveBtnName, setIsActiveBtnName] = useState(false);
+  const [isActiveInput, setIsActiveInput] = useState(false);
 
   if (!inputValue) {
     return <NewItem {...{ handleUpdeteItems, itemsKey: "name" }} />;
@@ -74,14 +70,18 @@ export const NameItem: React.FC<ItemProps> = ({
                 />
               ) : (
                 <div
-                  onMouseEnter={onMouseEnter}
-                  onClick={handleDivClick}
+                  onMouseEnter={handleActive({
+                    setIsActiveBtnName,
+                  })}
+                  onClick={handleDivClick(setIsActiveBtnName)}
                   className=" w-full h-full flex items-center "
                 >
                   {items["name"]}
+                  {items.pride >= 1 && isActiveBtnName && (
+                    <BtnItem {...{ setIsActiveBtnName, setIsActiveInput }} />
+                  )}
                 </div>
               )}
-              {items.pride >= 1 && btnAddAndEdit}
             </>
           )}
         </div>
@@ -98,14 +98,19 @@ export const NameItem: React.FC<ItemProps> = ({
                 />
               ) : (
                 <div
-                  onMouseEnter={onMouseEnter}
-                  onClick={handleDivClick}
+                  onMouseEnter={handleActive({
+                    setIsActiveBtnName,
+                  })}
+                  onClick={handleDivClick(setIsActiveBtnName)}
                   className=" w-full h-full flex items-center "
                 >
                   {items["name"]}
+
+                  {items.pride >= 1 && isActiveBtnName && (
+                    <BtnItem {...{ setIsActiveBtnName, setIsActiveInput }} />
+                  )}
                 </div>
               )}
-              {items.pride >= 1 && btnAddAndEdit}
             </>
           )}
         </div>

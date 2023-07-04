@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Item as ItemT } from "../../type";
 import { useAppDispatch } from "../../store";
 import { addItem, updateItemValueById } from "../../slices/items";
-import { RenderTree } from "../render/RenderTree";
-import { RenderItems } from "../render/RenderItems";
+import { RenderTree } from "./render/RenderTree";
+import { RenderItems } from "./render/RenderItems";
 import { checkConditions, mapArray } from "../../utils/checkArrayMapping";
 
 interface ItemProps {
@@ -24,8 +24,6 @@ const Item: React.FC<ItemProps> = ({
   paramsId,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isActiveBtnName, setIsActiveBtnName] = useState(false);
-  const [isActiveInput, setIsActiveInput] = useState(false);
   const [inputValue, setInputValue] = useState<string>("");
 
   const dispatch = useAppDispatch();
@@ -44,13 +42,11 @@ const Item: React.FC<ItemProps> = ({
     id: string;
   }) => {
     dispatch(updateItemValueById({ key, id, value, paramsId }));
-    setIsActiveInput(false);
   };
 
   const hendleAddInput = () => {
     dispatch(addItem({ id: items.id, paramsId }));
   };
-  console.log("lastNode:", lastNode, "childLength:", childLength, arrayMapping);
 
   const RenderTree = () => (
     <>
@@ -82,14 +78,10 @@ const Item: React.FC<ItemProps> = ({
             handleUpdete,
             hendleAddInput,
             inputValue,
-            isActiveBtnName,
-            isActiveInput,
             isExpanded,
             items,
             lastNode,
             setInputValue,
-            setIsActiveBtnName,
-            setIsActiveInput,
             setIsExpanded,
           }}
         />

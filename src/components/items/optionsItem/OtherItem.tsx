@@ -4,7 +4,6 @@ import NewItem from "./NewItem";
 interface ItemProps {
   value: string;
   itemsKey: string;
-  isActiveInput: boolean;
   handleUpdeteItems: <T extends string>(
     key: T,
     velue: T
@@ -14,10 +13,11 @@ interface ItemProps {
 export const OtherItem: React.FC<ItemProps> = ({
   value,
   itemsKey,
-  isActiveInput,
   handleUpdeteItems,
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
+  const [isActiveInput, setIsActiveInput] = useState(false);
+
   useEffect(() => {
     setInputValue(value);
   }, []);

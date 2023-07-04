@@ -1,6 +1,6 @@
-import { Item } from "../../type";
-import { checkConditions, mapArray } from "../../utils/checkArrayMapping";
-import Items from "../items/Item";
+import { Item } from "../../../type";
+import { checkConditions, mapArray } from "../../../utils/checkArrayMapping";
+import Items from "../Item";
 
 interface PropsRenderTree {
   items: Item;
